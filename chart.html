@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link href="dashboard.css" rel="stylesheet">
+    
+    <title>Actual By State</title>
+    <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const state = urlParams.get('state')
+    const labels = [];
+    const listdata = [];
+
+    let stateText=""
+
+    switch(state) {
+      case "AL":
+        stateText='Alabama'
+        break;
+      case "AK":
+        stateText='Alaska'
+        break;
+      case "AZ":
+        stateText='Arizona'
+        break;
+      case "AR":
+        stateText='Arkansas'
+        break;
+      case "CA":
+        stateText='California'
+        break;
+      case "CO":
+        stateText='Colorado'
+        break;
+      case "CT":
+        stateText='Connecticut'
+        break;
+      case "DC":
+        stateText='Washington DC'
+        break;
+      case "DE":
+        stateText='Delaware'
+        break;
+      case "FL":
+        stateText='Florida'
+        break;
+      case "GA":
+        stateText='Georgia'
+        break;
+      case "HI":
+        stateText='Hawaii'
+        break;
+      case "ID":
+        stateText='Idaho'
+        break;
+      case "IL":
+        stateText='Illinois'
+        break;
+      case "IN":
+        stateText='Indiana'
+        break;
+      case "IA":
+        stateText='Iowa'
+        break;
+      case "KS":
+        stateText='Kansas'
+        break;
+      case "KY":
+        stateText='Kentucky'
+        break;
+      case "LA":
+        stateText='Louisiana'
+        break;
+      case "ME":
+        stateText='Maine'
+        break;
+      case "MD":
+        stateText='Maryland'
+        break;
+      case "MA":
+        stateText='Massachusetts'
+        break;
+      case "MI":
+        stateText='Michigan'
+        break;
+      case "MN":
+        stateText='Minnesota'
+        break;
+      case "MS":
+        stateText='Mississippi'
+        break;
+      case "MO":
+        stateText='Missouri'
+        break;
+      case "MT":
+        stateText='Montana'
+        break;
+      case "NE":
+        stateText='Nebraska'
+        break;
+      case "NV":
+        stateText='Nevada'
+        break;
+      case "NH":
+        stateText='New Hampshire'
+        break;
+      case "NJ":
+        stateText='New Jersey'
+        break;
+      case "NM":
+        stateText='New Mexico'
+        break;
+      case "NY":
+        stateText='New York'
+        break;
+      case "NC":
+        stateText='North Carolina'
+        break;
+      case "ND":
+        stateText='North Dakota'
+        break;
+      case "OH":
+        stateText='Ohio'
+        break;
+      case "OK":
+        stateText='Oklahoma'
+        break;
+      case "OR":
+        stateText='Oregon'
+        break;
+      case "PA":
+        stateText='Pennsylvania'
+        break;
+      case "RI":
+        stateText='Rhode Island'
+        break;
+      case "SC":
+        stateText='South Carolina'
+        break;
+      case "SD":
+        stateText='South Dakota'
+        break;
+      case "TN":
+        stateText='Tennessee'
+        break;
+      case "TX":
+        stateText='Texas'
+        break;
+      case "UT":
+        stateText='Utah'
+        break;
+      case "VT":
+        stateText='Vermont'
+        break;
+      case "VA":
+        stateText='Virginia'
+        break;
+      case "WA":
+        stateText='Washington'
+        break;
+      case "WV":
+        stateText='West Virginia'
+        break;
+      case "WI":
+        stateText='Wisconsin'
+        break;
+      case "WY":
+        stateText='Wyoming'
+        break;
+    }
+
+      function onSelectedState(myvalue) { 
+        fetch("http://127.0.0.1:5000/list?state="+myvalue).then((response) => response.json()).then((data) => generateGraph(data));
+      }
+
+      function generateGraph(data) {
+        const mydataParsed=JSON.parse(data) 
+        
+
+        for(var i in mydataParsed.ENERGY)(labels.push(mydataParsed.ENERGY[i]))
+        for(var i in mydataParsed.GENERATION)(listdata.push(mydataParsed.GENERATION[i]))
+        
+      }
+      onSelectedState(state)
+    </script>
+  </head>
+  <body class="min-vh-100 text-white">
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a href="#" onclick="window.location.href='dashboard.html?state='+state" target="_self" title="Go back home" class="btn btn-link text-white"> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+</svg>
+    </a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Renewables Energy Project Application</a>
+  
+  <div class="navbar-nav">
+    
+    <div class="nav-item text-nowrap text-white me-2">
+      GCU
+    </div>
+  </div>
+</header>
+
+    <div class="container-fluid min-vh-100">
+  <div class="row min-vh-100">
+  <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home align-text-bottom" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              Home
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="window.location.href='dashboard.html?state='+state">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-steps" viewBox="0 0 16 16">
+                <path d="M.5 0a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 .5 0zM2 1.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1z"/>
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="window.location.href='dashboard.html?state='+state">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
+                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+              </svg>
+              Historical Data
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2 align-text-bottom" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              Actual Data
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="window.location.href='analysis.html?state='+state">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-motherboard-fill" viewBox="0 0 16 16">
+                <path d="M5 7h3V4H5v3Z"/>
+                <path d="M1 2a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 9H1V8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6H1V5H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 2H1Zm11 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm2 0a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM3.5 10a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6Zm0 2a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6ZM4 4h-.5a.5.5 0 0 0 0 1H4v1h-.5a.5.5 0 0 0 0 1H4a1 1 0 0 0 1 1v.5a.5.5 0 0 0 1 0V8h1v.5a.5.5 0 0 0 1 0V8a1 1 0 0 0 1-1h.5a.5.5 0 0 0 0-1H9V5h.5a.5.5 0 0 0 0-1H9a1 1 0 0 0-1-1v-.5a.5.5 0 0 0-1 0V3H6v-.5a.5.5 0 0 0-1 0V3a1 1 0 0 0-1 1Zm7 7.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5Z"/>
+              </svg>
+              Data Analysis
+            </a>
+          </li>
+          
+          </ul>
+
+        
+
+      </div>
+    </nav>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg min-vh-100">
+    <div>
+    <h1 class="text-center my-4">State of <span id="title"></span></h1>
+    <div class = "container">
+      <div class = "row d-flex justify-content-center">
+        <div class = "col-10" style="width:400px"> 
+          <canvas id="myChart" style="width:400px" class="bg-white p-4"></canvas>
+        </div>
+      </div>
+    </div>
+
+      </div>
+    </main>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      
+
+      const mydataset = {
+        labels: labels,
+        datasets: [{
+          label: 'Consumption Electrical and Heather, August 2022',
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          data: listdata,
+        }]
+      };
+      console.log(mydataset)
+      const config = {
+        type: 'line',
+        data: mydataset,
+        options: {},
+        responsive:true
+      };
+    </script>
+    <script>
+      document.getElementById("title").innerHTML=stateText
+ const myChart = new Chart(
+          document.getElementById('myChart'),
+          config
+        );
+
+
+        myChart.render();
+    </script>
+ 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</html>
+
+
